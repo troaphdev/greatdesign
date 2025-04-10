@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Example - Troaph</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <!-- Vertex Shader -->
+    <script type="x-shader/x-vertex" id="vertexshader">
+      attribute float size;
+      attribute vec3 customColor;
+      varying vec3 vColor;
+      
+      void main() {
+        vColor = customColor;
+        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = size * (300.0 / -mvPosition.z);
+        gl_Position = projectionMatrix * mvPosition;
+      }
+    </script>
+    <!-- Fragment Shader -->
+    <script type="x-shader/x-fragment" id="fragmentshader">
+      uniform vec3 color;
+      uniform sampler2D pointTexture;
+      varying vec3 vColor;
+      
+      void main() {
+        gl_FragColor = vec4(color * vColor, 1.0);
+        gl_FragColor = gl_FragColor * texture2D(pointTexture, gl_PointCoord);
+      }
+    </script>
+    
+    <!-- Container for Three.js content -->
+    <div id="magic"></div>
+    
+    <!-- Playground / UI overlay -->
+    <div class="playground">
+      <div class="bottomPosition">
+        <svg 
+          class="logo"
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 100 100" 
+          width="50" 
+          height="50"
+        >
+          <rect x="5" y="5" width="90" height="90" fill="#000205" />
+          <rect x="20" y="20" width="20" height="20" fill="#FFF" />
+          <rect x="60" y="20" width="20" height="20" fill="#FFF" />
+          <rect x="30" y="60" width="40" height="10" fill="#FFF" />
+        </svg>
+        <h1 class="special">
+          Troaph<br />
+          <span class="minText">Software Engineer</span>
+        </h1>
+      </div>
+    </div>
+    
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
