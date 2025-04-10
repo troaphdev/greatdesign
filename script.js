@@ -1,5 +1,5 @@
+// Assumes THREE is imported via a <script type="module"> in index.html
 // Import Three.js and FontLoader
-import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 
 const preload = () => {
